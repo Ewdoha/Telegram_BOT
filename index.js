@@ -15,7 +15,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.start((ctx) => ctx.reply(`Ку ку ${ctx.message.from.username}`))
 bot.help((ctx) => ctx.reply(text.commands))
 bot.command( "course", async (ctx) => {
-
     try {
         await ctx.replyWithHTML("<b>Шось тут</b>", Markup.inlineKeyboard(
             [
@@ -25,6 +24,17 @@ bot.command( "course", async (ctx) => {
     } catch(e) {
         console.error(e)
     }   
+})
+
+bot.action("btn_1", async (ctx) => {
+    await ctx.answerCbQuery()
+    try {
+        await ctx.replyWithHTML("Обробка 1", {
+            disable_web_page_preview: true 
+        })
+    } catch (e) {
+        console.error(e)
+    }
 })
 
 bot.launch()
