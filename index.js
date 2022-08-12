@@ -1,10 +1,3 @@
-/*
-const TelegramApi = require('node-telegram-bot-api'); // подключаем node-telegram-bot-api
-
-const token = '5461271066:AAFm8pnYnf3JE4vBYT9iL6N0-jNCb2bYAsI'; // тут токен кторый мы получили от botFather
-
-const bot = new TelegramApi( token, {polling: true});
-*/
 
 const { Telegraf, Markup } = require('telegraf')
 require("dotenv").config()
