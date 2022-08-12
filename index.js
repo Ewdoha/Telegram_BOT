@@ -16,9 +16,10 @@ bot.start((ctx) => ctx.reply(`Ку ку ${ctx.message.from.username}`))
 bot.help((ctx) => ctx.reply(text.commands))
 bot.command( "course", async (ctx) => {
     try {
-        await ctx.replyWithHTML("<b>Шось тут</b>", Markup.inlineKeyboard(
+        await ctx.replyWithHTML("<b>Вибери щось</b>", Markup.inlineKeyboard(
             [
-                [Markup.button.callback("1", "btn_1"), Markup.button.callback("2", "btn_2")]
+                [Markup.button.callback("1", "btn_1"), Markup.button.callback("2", "btn_2")],
+                [Markup.button.callback("3", "btn_3")]
             ]
         ))
     } catch(e) {
@@ -26,16 +27,27 @@ bot.command( "course", async (ctx) => {
     }   
 })
 
-bot.action("btn_1", async (ctx) => {
-    await ctx.answerCbQuery()
-    try {
-        await ctx.replyWithHTML("Обробка 1", {
-            disable_web_page_preview: true 
-        })
-    } catch (e) {
-        console.error(e)
-    }
-})
+function addActionBot(nameButton, src, text) {
+    bot.action(nameButton, async (ctx) => {
+        try {
+            await ctx.answerCbQuery()
+            if (src !== false) {
+              await ctx.replyWithPhoto({
+                source: src
+              })
+            }
+            await ctx.replyWithHTML(text, {
+                disable_web_page_preview: true 
+            })
+        } catch (e) {
+            console.error(e)
+        }
+    })
+}
+
+addActionBot("btn_1", "./img/1.jpg", text.text1);
+addActionBot("btn_2", "./img/2.jpg", text.text2);
+addActionBot("btn_3", false, text.text3);
 
 bot.launch()
 // Enable graceful stop
